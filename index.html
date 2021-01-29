@@ -58,20 +58,23 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="firstClassTicketAmount" class="inp-style inp-width" type="text" value="1">
                 </div>
                 <div class="plus-minus-btn">
-                    <p>+ -</p>
+                    <!-- <p>+ -</p> -->
+                    <button id="firstClassTicketAdd" class="plus-minus-btn">+</button>
+                    <button id="firstClassTicketMinus" class="plus-minus-btn">-</button>
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="" class="inp-style inp-width" type="number" name="">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                    <button class="plus-minus-btn">+</button>
+                    <button class="plus-minus-btn">-</button>
                 </div>
             </div>
             <div class="calculations">
@@ -107,6 +110,22 @@
     </main>
 
     <!--Thank You-->
+    <script>
+        document.getElementById("firstClassTicketAdd").addEventListener("click", function(){
+            const firstClassTicketInput = document.getElementById("firstClassTicketAmount");
+            const firstClassTicketAmount = parseInt(firstClassTicketInput.value);
+            const firstClassTicketCount = firstClassTicketAmount + 1;
+            firstClassTicketInput.value = firstClassTicketCount;
+            
+        }) 
+        document.getElementById("firstClassTicketMinus").addEventListener("click", function(){
+            const firstClassTicketInput = document.getElementById("firstClassTicketAmount");
+            const firstClassTicketAmount = parseInt(firstClassTicketInput.value);
+            const firstClassTicketCount = firstClassTicketAmount - 1;
+            firstClassTicketInput.value = firstClassTicketCount;
+            
+        })
+    </script>
 </body>
 
 </html>
