@@ -31,7 +31,9 @@
 
         <div class="booking-content">
             <h1>Cruise Queen</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book./p>
         </div>
 
 
@@ -48,7 +50,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -58,23 +60,25 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input id="firstClassTicketAmount" class="inp-style inp-width" type="text" value="1">
+                    <input id="firstClass-TicketAmount" class="inp-style inp-width" type="text" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <!-- <p>+ -</p> -->
-                    <button id="firstClassTicketAdd" class="plus-minus-btn">+</button>
-                    <button id="firstClassTicketMinus" class="plus-minus-btn">-</button>
+                    <button onclick="allTicketChange('firstClass', true)" id="firstClassTicketAdd"
+                        class="plus-minus-btn">+</button>
+                    <button onclick="allTicketChange('firstClass', false)" id="firstClassTicketMinus"
+                        class="plus-minus-btn">-</button>
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input id="" class="inp-style inp-width" type="number" name="">
+                    <input id="economy-TicketAmount" class="inp-style inp-width" type="text" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button class="plus-minus-btn">+</button>
-                    <button class="plus-minus-btn">-</button>
+                    <button onclick="allTicketChange('economy', true)" class="plus-minus-btn">+</button>
+                    <button onclick="allTicketChange('economy', false)" class="plus-minus-btn">-</button>
                 </div>
             </div>
             <div class="calculations">
@@ -83,7 +87,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p >$<span id="SubTotal-Price">0</span></p>
                     </div>
                 </div>
 
@@ -92,7 +96,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$<span id="totalVat">0</span></p>
                     </div>
                 </div>
                 <hr>
@@ -101,7 +105,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$<span id="total-price">0</span></p>
                     </div>
                 </div>
             </div>
@@ -111,20 +115,36 @@
 
     <!--Thank You-->
     <script>
-        document.getElementById("firstClassTicketAdd").addEventListener("click", function(){
-            const firstClassTicketInput = document.getElementById("firstClassTicketAmount");
-            const firstClassTicketAmount = parseInt(firstClassTicketInput.value);
-            const firstClassTicketCount = firstClassTicketAmount + 1;
-            firstClassTicketInput.value = firstClassTicketCount;
+            function allTicketChange(tickets, isAddAndMinus) {
+            const TicketInput = document.getElementById(tickets + '-TicketAmount');
+            const TicketAmount = parseInt(TicketInput.value);
+            let TicketCount = TicketAmount;
+            if (isAddAndMinus == true) {
+                TicketCount = TicketAmount + 1;
+            }
+            if (isAddAndMinus == false && TicketAmount > 0) {
+                TicketCount = TicketAmount - 1;
+            }
+            TicketInput.value = TicketCount;
+            calculateSubTotal()
+        }
+        function calculateSubTotal(){
+            const firstClassInput = document.getElementById('firstClass-TicketAmount');
+            const firstClassCount = parseInt(firstClassInput.value);
+
+            const economyInput = document.getElementById('economy-TicketAmount');
+            const economyCount = parseInt(economyInput.value);
+
+            const SubTotalPrice = firstClassCount * 150 + economyCount * 100;
+            document.getElementById('SubTotal-Price').innerText = SubTotalPrice;
             
-        }) 
-        document.getElementById("firstClassTicketMinus").addEventListener("click", function(){
-            const firstClassTicketInput = document.getElementById("firstClassTicketAmount");
-            const firstClassTicketAmount = parseInt(firstClassTicketInput.value);
-            const firstClassTicketCount = firstClassTicketAmount - 1;
-            firstClassTicketInput.value = firstClassTicketCount;
-            
-        })
+            const totalVatCalculate = SubTotalPrice / 110 * 10;
+            const intgerVat =  parseInt(totalVatCalculate);
+            document.getElementById('totalVat').innerText = intgerVat;
+
+            const totalPrice = SubTotalPrice + intgerVat;
+            document.getElementById('total-price').innerText = totalPrice;
+        }
     </script>
 </body>
 
